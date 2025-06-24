@@ -1,0 +1,47 @@
+<script setup lang="ts">
+import type { FormError, FormSubmitEvent } from '@nuxt/ui'
+
+const state = reactive({
+  email: undefined,
+  password: undefined
+})
+
+const validate = (state: any): FormError[] => {
+  const errors = []
+  if (!state.email) errors.push({ name: 'email', message: 'Required' })
+  if (!state.password) errors.push({ name: 'password', message: 'Required' })
+  return errors
+}
+
+const toast = useToast()
+async function onSubmit(event: FormSubmitEvent<typeof state>) {
+  toast.add({ title: 'Success', description: 'The form has been submitted.', color: 'success' })
+  console.log(event.data)
+}
+</script>
+
+<template>
+    <div class="flex justify-center items-center h-screen">
+
+        <UCard>
+            <h1 class="text-2xl font-bold">Login</h1>
+
+            <UForm :validate="validate" :state="state" class="space-y-4" @submit="onSubmit">
+                <UFormField label="Email" name="email">
+                <UInput v-model="state.email" />
+                </UFormField>
+
+                <UFormField label="Password" name="password">
+                <UInput v-model="state.password" type="password" />
+                </UFormField>
+
+                <UButton type="submit">
+                Submit
+                </UButton>
+            </UForm>
+
+        </UCard>
+    </div>
+
+</template>
+
