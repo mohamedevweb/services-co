@@ -14,7 +14,7 @@
         <a href="/contact">Contact</a>
       </div>
 
-      <UButton > Login </UButton>
+      <UButton class="cursor-pointer" @click="navigateTo('/login')"> Login </UButton>
     </div>
 
   </nav>
