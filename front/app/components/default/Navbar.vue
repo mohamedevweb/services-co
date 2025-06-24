@@ -6,7 +6,7 @@
 				<UButton color="neutral" variant="ghost" size="sm" label="Accueil" to="/" />
 				<UButton color="neutral" variant="ghost" size="sm" label="À propos" to="/about" />
 			</div>
-			<UButton color="neutral" variant="ghost" size="md" label="View on GitHub" icon="i-simple-icons-github" to="https://github.com/mohamedevweb/services-co" target="_blank" />
+			<UButton color="neutral" class="bg-blue-500 text-white" variant="ghost" size="md" label="Login" to="/login" />
 		</UContainer>
 	</nav>
 </template>

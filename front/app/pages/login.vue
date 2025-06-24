@@ -21,10 +21,10 @@ async function onSubmit(event: FormSubmitEvent<typeof state>) {
 </script>
 
 <template>
-    <div class="flex justify-center items-center h-screen">
+    <div class="flex justify-center mt-20">
 
         <UCard>
-            <h1 class="text-2xl font-bold">Login</h1>
+            <h1 class="text-2xl font-bold ">Login</h1>
 
             <UForm :validate="validate" :state="state" class="space-y-4" @submit="onSubmit">
                 <UFormField label="Email" name="email">
