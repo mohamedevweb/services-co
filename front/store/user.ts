@@ -5,7 +5,7 @@ export const useUserStore = defineStore('user', {
     actions: {
         async login(email: string, password: string) {
 
-            const response = await fetch('http://localhost:3001/auth', {
+            const response = await fetch(/auth', {
                 method: 'POST',
                 body: JSON.stringify({ email, password })
             })

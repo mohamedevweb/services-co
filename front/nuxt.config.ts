@@ -12,6 +12,12 @@ export default defineNuxtConfig({
     '@pinia/nuxt'
   ],
 
+  runtimeConfig: {
+    public: {
+      apiUrl: process.env.API_URL
+    }
+  },
+
   css: ['~/assets/css/main.css'],
 
   future: {
