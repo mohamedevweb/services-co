@@ -8,11 +8,15 @@
   },
   "dependencies": {
     "@hono/node-server": "^1.14.1",
+    "@neondatabase/serverless": "^1.0.1",
+    "dotenv": "^16.5.0",
+    "drizzle-orm": "^0.44.2",
     "hono": "^4.7.9"
   },
   "devDependencies": {
     "@types/node": "^20.11.17",
-    "tsx": "^4.7.1",
+    "drizzle-kit": "^0.31.2",
+    "tsx": "^4.20.3",
     "typescript": "^5.8.3"
   }
 }
