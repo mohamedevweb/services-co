@@ -2,12 +2,19 @@ import {serve} from '@hono/node-server'
 import {Hono} from 'hono'
 import dotenv from 'dotenv'
 import {drizzle} from 'drizzle-orm/neon-http';
+import authRoutes from './routes/auth.routes.js';
+import protectedRoutes from './routes/protected.routes.js';
 
 dotenv.config();
 
-
 const app = new Hono()
 export const db = drizzle(process.env.DATABASE_URL!);
+
+// Mount auth routes
+app.route('/auth', authRoutes);
+
+// Mount protected routes
+app.route('/api', protectedRoutes);
 
 app.get('/', (c) => {
     return c.text('Hello Hono!')

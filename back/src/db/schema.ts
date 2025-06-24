@@ -10,7 +10,7 @@ import {
 } from "drizzle-orm/pg-core";
 
 // Enums
-export const userRoleEnum = pgEnum("role", ["ADMIN", "ORG", "PRESTA"]);
+export const userRoleEnum = pgEnum("role", ["ADMIN", "ORG", "PRESTA", "USER"]);
 export const jobEnum = pgEnum("job", [
     "DEVELOPMENT",
     "DESIGN",
