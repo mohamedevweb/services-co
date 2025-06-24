@@ -61,7 +61,7 @@ export class PrestataireService {
 
             await tx.update(users)
                 .set({role: 'PRESTA'})
-                .where(eq(users.id, prestataire.userId));
+                .where(eq(users.id, dto.id_users));
 
             return prestataireId;
         });
