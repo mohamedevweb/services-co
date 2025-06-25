@@ -4,6 +4,7 @@ export const useUserStore = defineStore('user', {
         password: '',
         isLoggedIn: false,
         apiUrl: useRuntimeConfig().public.apiUrl,
+        isAuthenticated: false,
     }),
 
     getters: { 
@@ -63,6 +64,7 @@ export const useUserStore = defineStore('user', {
                             color: 'success',
                         }
                     )
+                    this.isAuthenticated = true;
                 }
             }
         catch(error: any)
@@ -79,17 +81,17 @@ export const useUserStore = defineStore('user', {
             const toast = useToast()
 
             try {
+                const response = await $fetch(this.apiUrl + '/auth/verify', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: token
+                }) as any
 
-            const response = await $fetch(this.apiUrl + '/auth//verify', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: token
-            }) as any
-
-            this.email = response.email;
-            this.isLoggedIn = true;
+                this.email = response.email;
+                this.isLoggedIn = true;
+                this.isAuthenticated = true;
 
             } catch(error: any) {
                 toast.add({
@@ -98,6 +100,7 @@ export const useUserStore = defineStore('user', {
                     color: 'error',
                 });
                 this.isLoggedIn = false;
+                this.isAuthenticated = false;
             }
         },
 
