@@ -30,16 +30,16 @@ async function onSubmit(event: FormSubmitEvent<typeof state>) {
 </script>
 
 <template>
-  <UCard class="flex flex-col justify-center items-center">
+  <UCard class="flex flex-col justify-center w-full">
     <h1 class="text-2xl font-bold mb-5">Inscription</h1>
 
     <UForm :validate="validate" :state="state" class="space-y-4" @submit="onSubmit">
       <UFormField label="Email" name="email">
-        <UInput v-model="state.email" />
+        <UInput class="w-full" v-model="state.email" />
       </UFormField>
 
       <UFormField label="Password" name="password">
-        <UInput v-model="state.password" type="password" />
+        <UInput class="w-full" v-model="state.password" type="password" />
       </UFormField>
 
       <UButton type="submit">

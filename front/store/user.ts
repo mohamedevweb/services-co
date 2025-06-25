@@ -2,7 +2,6 @@ export const useUserStore = defineStore('user', {
     state: () => ({
         email: '',
         password: '',
-        isLoggedIn: false,
         apiUrl: useRuntimeConfig().public.apiUrl,
         isAuthenticated: false,
     }),
@@ -24,7 +23,7 @@ export const useUserStore = defineStore('user', {
 
                 this.email = data.email;
                 this.password = data.password;
-                this.isLoggedIn = true;
+                this.isAuthenticated = true;
                 toast.add({
                         title: 'Registration successful',
                         description: 'You have successfully registered.',
@@ -32,8 +31,12 @@ export const useUserStore = defineStore('user', {
                         }
                     )
                 }
-
                 catch(error: any) {
+                    toast.add({
+                        title: 'Registration failed',
+                        description: error.message || 'Failed to register.',
+                        color: 'error',
+                    });
                     throw new Error('Registration failed');
                 }
         },
@@ -52,22 +55,22 @@ export const useUserStore = defineStore('user', {
                     }
                 }) as any
 
-                if (response.ok) {
-                    const data = await response.json();
-                    this.email = data.email;
-                    this.password = data.password;
-                    this.isLoggedIn = true;
-                    localStorage.setItem('token', data.token);
-                    toast.add({
-                            title: 'Login successful',
-                            description: 'You have successfully login.',
-                            color: 'success',
-                        }
-                    )
-                    this.isAuthenticated = true;
-                }
+                this.email = response.email;
+                this.password = response.password;
+                this.isAuthenticated = true;
+
+                // Stocker le token dans le cookie
+                const token = useCookie('token')
+                token.value = response.data?.token
+
+                toast.add({
+                        title: 'Login successful',
+                        description: 'You have successfully logged in.',
+                        color: 'success',
+                    }
+                )
             }
-        catch(error: any)
+            catch(error: any)
             {
                 toast.add({
                     title: 'Login failed',
@@ -84,14 +87,18 @@ export const useUserStore = defineStore('user', {
                 const response = await $fetch(this.apiUrl + '/auth/verify', {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: token
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    }
                 }) as any
 
-                this.email = response.email;
-                this.isLoggedIn = true;
-                this.isAuthenticated = true;
+                if(response.success){
+                    this.isAuthenticated = true;
+                }
+                else {
+                    throw new Error(response.message || 'Token verification failed');
+                }
+
 
             } catch(error: any) {
                 toast.add({
@@ -99,7 +106,6 @@ export const useUserStore = defineStore('user', {
                     description: error.message || 'Failed to verify token.',
                     color: 'error',
                 });
-                this.isLoggedIn = false;
                 this.isAuthenticated = false;
             }
         },
@@ -107,8 +113,11 @@ export const useUserStore = defineStore('user', {
         logout() {
             this.email = '';
             this.password = '';
-            this.isLoggedIn = false;
-            localStorage.removeItem('token');
+            this.isAuthenticated = false;
+            
+            // Nettoyer le cookie
+            const token = useCookie('token');
+            token.value = null;
         }
     },
   })
