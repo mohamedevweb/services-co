@@ -1,0 +1,904 @@
+{
+  "id": "d7368e6b-b54d-48e8-95c5-dbe7a9bdcaa0",
+  "prevId": "00000000-0000-0000-0000-000000000000",
+  "version": "7",
+  "dialect": "postgresql",
+  "tables": {
+    "public.ai_translate": {
+      "name": "ai_translate",
+      "schema": "",
+      "columns": {
+        "Id_ai_translate": {
+          "name": "Id_ai_translate",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "identity": {
+            "type": "always",
+            "name": "ai_translate_Id_ai_translate_seq",
+            "schema": "public",
+            "increment": "1",
+            "startWith": "1",
+            "minValue": "1",
+            "maxValue": "2147483647",
+            "cache": "1",
+            "cycle": false
+          }
+        },
+        "content": {
+          "name": "content",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "content_translate": {
+          "name": "content_translate",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Id_organization": {
+          "name": "Id_organization",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "ai_translate_Id_organization_organization_Id_organization_fk": {
+          "name": "ai_translate_Id_organization_organization_Id_organization_fk",
+          "tableFrom": "ai_translate",
+          "tableTo": "organization",
+          "columnsFrom": [
+            "Id_organization"
+          ],
+          "columnsTo": [
+            "Id_organization"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.contract": {
+      "name": "contract",
+      "schema": "",
+      "columns": {
+        "Id_contract": {
+          "name": "Id_contract",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "identity": {
+            "type": "always",
+            "name": "contract_Id_contract_seq",
+            "schema": "public",
+            "increment": "1",
+            "startWith": "1",
+            "minValue": "1",
+            "maxValue": "2147483647",
+            "cache": "1",
+            "cycle": false
+          }
+        },
+        "num_contract": {
+          "name": "num_contract",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Id_prestataire": {
+          "name": "Id_prestataire",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Id_project": {
+          "name": "Id_project",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "contract_Id_prestataire_prestataire_Id_prestataire_fk": {
+          "name": "contract_Id_prestataire_prestataire_Id_prestataire_fk",
+          "tableFrom": "contract",
+          "tableTo": "prestataire",
+          "columnsFrom": [
+            "Id_prestataire"
+          ],
+          "columnsTo": [
+            "Id_prestataire"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "contract_Id_project_project_Id_project_fk": {
+          "name": "contract_Id_project_project_Id_project_fk",
+          "tableFrom": "contract",
+          "tableTo": "project",
+          "columnsFrom": [
+            "Id_project"
+          ],
+          "columnsTo": [
+            "Id_project"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.diploma": {
+      "name": "diploma",
+      "schema": "",
+      "columns": {
+        "Id_diploma": {
+          "name": "Id_diploma",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "identity": {
+            "type": "always",
+            "name": "diploma_Id_diploma_seq",
+            "schema": "public",
+            "increment": "1",
+            "startWith": "1",
+            "minValue": "1",
+            "maxValue": "2147483647",
+            "cache": "1",
+            "cycle": false
+          }
+        },
+        "description": {
+          "name": "description",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Id_prestataire": {
+          "name": "Id_prestataire",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "diploma_Id_prestataire_prestataire_Id_prestataire_fk": {
+          "name": "diploma_Id_prestataire_prestataire_Id_prestataire_fk",
+          "tableFrom": "diploma",
+          "tableTo": "prestataire",
+          "columnsFrom": [
+            "Id_prestataire"
+          ],
+          "columnsTo": [
+            "Id_prestataire"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.experience": {
+      "name": "experience",
+      "schema": "",
+      "columns": {
+        "Id_experience": {
+          "name": "Id_experience",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "identity": {
+            "type": "always",
+            "name": "experience_Id_experience_seq",
+            "schema": "public",
+            "increment": "1",
+            "startWith": "1",
+            "minValue": "1",
+            "maxValue": "2147483647",
+            "cache": "1",
+            "cycle": false
+          }
+        },
+        "description": {
+          "name": "description",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Id_prestataire": {
+          "name": "Id_prestataire",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "experience_Id_prestataire_prestataire_Id_prestataire_fk": {
+          "name": "experience_Id_prestataire_prestataire_Id_prestataire_fk",
+          "tableFrom": "experience",
+          "tableTo": "prestataire",
+          "columnsFrom": [
+            "Id_prestataire"
+          ],
+          "columnsTo": [
+            "Id_prestataire"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.languages": {
+      "name": "languages",
+      "schema": "",
+      "columns": {
+        "Id_languages": {
+          "name": "Id_languages",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "identity": {
+            "type": "always",
+            "name": "languages_Id_languages_seq",
+            "schema": "public",
+            "increment": "1",
+            "startWith": "1",
+            "minValue": "1",
+            "maxValue": "2147483647",
+            "cache": "1",
+            "cycle": false
+          }
+        },
+        "description": {
+          "name": "description",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Id_prestataire": {
+          "name": "Id_prestataire",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "languages_Id_prestataire_prestataire_Id_prestataire_fk": {
+          "name": "languages_Id_prestataire_prestataire_Id_prestataire_fk",
+          "tableFrom": "languages",
+          "tableTo": "prestataire",
+          "columnsFrom": [
+            "Id_prestataire"
+          ],
+          "columnsTo": [
+            "Id_prestataire"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.message": {
+      "name": "message",
+      "schema": "",
+      "columns": {
+        "Id_prestataire": {
+          "name": "Id_prestataire",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Id_organization": {
+          "name": "Id_organization",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "createAt": {
+          "name": "createAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "content": {
+          "name": "content",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "message_Id_prestataire_prestataire_Id_prestataire_fk": {
+          "name": "message_Id_prestataire_prestataire_Id_prestataire_fk",
+          "tableFrom": "message",
+          "tableTo": "prestataire",
+          "columnsFrom": [
+            "Id_prestataire"
+          ],
+          "columnsTo": [
+            "Id_prestataire"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "message_Id_organization_organization_Id_organization_fk": {
+          "name": "message_Id_organization_organization_Id_organization_fk",
+          "tableFrom": "message",
+          "tableTo": "organization",
+          "columnsFrom": [
+            "Id_organization"
+          ],
+          "columnsTo": [
+            "Id_organization"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "message_Id_prestataire_Id_organization_pk": {
+          "name": "message_Id_prestataire_Id_organization_pk",
+          "columns": [
+            "Id_prestataire",
+            "Id_organization"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.organization": {
+      "name": "organization",
+      "schema": "",
+      "columns": {
+        "Id_organization": {
+          "name": "Id_organization",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "identity": {
+            "type": "always",
+            "name": "organization_Id_organization_seq",
+            "schema": "public",
+            "increment": "1",
+            "startWith": "1",
+            "minValue": "1",
+            "maxValue": "2147483647",
+            "cache": "1",
+            "cycle": false
+          }
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "adresse": {
+          "name": "adresse",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "solde": {
+          "name": "solde",
+          "type": "numeric(15, 2)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "tel": {
+          "name": "tel",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Id_users": {
+          "name": "Id_users",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "organization_Id_users_users_Id_users_fk": {
+          "name": "organization_Id_users_users_Id_users_fk",
+          "tableFrom": "organization",
+          "tableTo": "users",
+          "columnsFrom": [
+            "Id_users"
+          ],
+          "columnsTo": [
+            "Id_users"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.path": {
+      "name": "path",
+      "schema": "",
+      "columns": {
+        "Id_path": {
+          "name": "Id_path",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "identity": {
+            "type": "always",
+            "name": "path_Id_path_seq",
+            "schema": "public",
+            "increment": "1",
+            "startWith": "1",
+            "minValue": "1",
+            "maxValue": "2147483647",
+            "cache": "1",
+            "cycle": false
+          }
+        },
+        "isChoose": {
+          "name": "isChoose",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "number": {
+          "name": "number",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Id_project": {
+          "name": "Id_project",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "path_Id_project_project_Id_project_fk": {
+          "name": "path_Id_project_project_Id_project_fk",
+          "tableFrom": "path",
+          "tableTo": "project",
+          "columnsFrom": [
+            "Id_project"
+          ],
+          "columnsTo": [
+            "Id_project"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.path_prestataire": {
+      "name": "path_prestataire",
+      "schema": "",
+      "columns": {
+        "Id_prestataire": {
+          "name": "Id_prestataire",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Id_path": {
+          "name": "Id_path",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "isApproved": {
+          "name": "isApproved",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "nb_days": {
+          "name": "nb_days",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "path_prestataire_Id_prestataire_prestataire_Id_prestataire_fk": {
+          "name": "path_prestataire_Id_prestataire_prestataire_Id_prestataire_fk",
+          "tableFrom": "path_prestataire",
+          "tableTo": "prestataire",
+          "columnsFrom": [
+            "Id_prestataire"
+          ],
+          "columnsTo": [
+            "Id_prestataire"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "path_prestataire_Id_path_path_Id_path_fk": {
+          "name": "path_prestataire_Id_path_path_Id_path_fk",
+          "tableFrom": "path_prestataire",
+          "tableTo": "path",
+          "columnsFrom": [
+            "Id_path"
+          ],
+          "columnsTo": [
+            "Id_path"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "path_prestataire_Id_prestataire_Id_path_pk": {
+          "name": "path_prestataire_Id_prestataire_Id_path_pk",
+          "columns": [
+            "Id_prestataire",
+            "Id_path"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.prestataire": {
+      "name": "prestataire",
+      "schema": "",
+      "columns": {
+        "Id_prestataire": {
+          "name": "Id_prestataire",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "identity": {
+            "type": "always",
+            "name": "prestataire_Id_prestataire_seq",
+            "schema": "public",
+            "increment": "1",
+            "startWith": "1",
+            "minValue": "1",
+            "maxValue": "2147483647",
+            "cache": "1",
+            "cycle": false
+          }
+        },
+        "first_name": {
+          "name": "first_name",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "job": {
+          "name": "job",
+          "type": "job",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "description": {
+          "name": "description",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "experience_time": {
+          "name": "experience_time",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "study_level": {
+          "name": "study_level",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "city": {
+          "name": "city",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "tjm": {
+          "name": "tjm",
+          "type": "numeric(15, 2)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Id_users": {
+          "name": "Id_users",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "prestataire_Id_users_users_Id_users_fk": {
+          "name": "prestataire_Id_users_users_Id_users_fk",
+          "tableFrom": "prestataire",
+          "tableTo": "users",
+          "columnsFrom": [
+            "Id_users"
+          ],
+          "columnsTo": [
+            "Id_users"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.project": {
+      "name": "project",
+      "schema": "",
+      "columns": {
+        "Id_project": {
+          "name": "Id_project",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "identity": {
+            "type": "always",
+            "name": "project_Id_project_seq",
+            "schema": "public",
+            "increment": "1",
+            "startWith": "1",
+            "minValue": "1",
+            "maxValue": "2147483647",
+            "cache": "1",
+            "cycle": false
+          }
+        },
+        "title": {
+          "name": "title",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "description": {
+          "name": "description",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Id_organization": {
+          "name": "Id_organization",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "project_Id_organization_organization_Id_organization_fk": {
+          "name": "project_Id_organization_organization_Id_organization_fk",
+          "tableFrom": "project",
+          "tableTo": "organization",
+          "columnsFrom": [
+            "Id_organization"
+          ],
+          "columnsTo": [
+            "Id_organization"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.skill": {
+      "name": "skill",
+      "schema": "",
+      "columns": {
+        "Id_skill": {
+          "name": "Id_skill",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "identity": {
+            "type": "always",
+            "name": "skill_Id_skill_seq",
+            "schema": "public",
+            "increment": "1",
+            "startWith": "1",
+            "minValue": "1",
+            "maxValue": "2147483647",
+            "cache": "1",
+            "cycle": false
+          }
+        },
+        "description": {
+          "name": "description",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Id_prestataire": {
+          "name": "Id_prestataire",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "skill_Id_prestataire_prestataire_Id_prestataire_fk": {
+          "name": "skill_Id_prestataire_prestataire_Id_prestataire_fk",
+          "tableFrom": "skill",
+          "tableTo": "prestataire",
+          "columnsFrom": [
+            "Id_prestataire"
+          ],
+          "columnsTo": [
+            "Id_prestataire"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.users": {
+      "name": "users",
+      "schema": "",
+      "columns": {
+        "Id_users": {
+          "name": "Id_users",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "identity": {
+            "type": "always",
+            "name": "users_Id_users_seq",
+            "schema": "public",
+            "increment": "1",
+            "startWith": "1",
+            "minValue": "1",
+            "maxValue": "2147483647",
+            "cache": "1",
+            "cycle": false
+          }
+        },
+        "email": {
+          "name": "email",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "password": {
+          "name": "password",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "role": {
+          "name": "role",
+          "type": "role",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "siret": {
+          "name": "siret",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    }
+  },
+  "enums": {
+    "public.job": {
+      "name": "job",
+      "schema": "public",
+      "values": [
+        "DEVELOPMENT",
+        "DESIGN",
+        "MARKETING",
+        "HUMAN_RESOURCES",
+        "SALES"
+      ]
+    },
+    "public.role": {
+      "name": "role",
+      "schema": "public",
+      "values": [
+        "ADMIN",
+        "ORG",
+        "PRESTA",
+        "USER"
+      ]
+    }
+  },
+  "schemas": {},
+  "sequences": {},
+  "roles": {},
+  "policies": {},
+  "views": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}
