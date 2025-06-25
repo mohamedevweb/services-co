@@ -25,4 +25,22 @@ message.post("/", guard, async (c) => {
     }
 });
 
+message.get("/conversation", guard, async (c) => {
+    const url = new URL(c.req.url);
+    const prestataireId = Number(url.searchParams.get("prestataireId"));
+    const organizationId = Number(url.searchParams.get("organizationId"));
+
+    if (!prestataireId || !organizationId) {
+        return c.json({ error: "Missing prestataireId or organizationId" }, 400);
+    }
+
+    try {
+        const conversation = await messageService.getConversation(prestataireId, organizationId);
+        return c.json({ success: true, messages: conversation });
+    } catch (err) {
+        console.error("Erreur récupération conversation :", err);
+        return c.json({ success: false, message: "Erreur serveur." }, 500);
+    }
+});
+
 export default message;
