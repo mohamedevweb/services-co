@@ -1,7 +1,7 @@
-import {dbPg} from '../index.js';
+import {db, dbPg} from '../index.js';
 import type {CreatePrestataireDto} from "../dto/createPrestataireDto.js";
 import {diploma, experience, languages, prestataire, skill, users} from "../db/schema.js";
-import {eq} from "drizzle-orm";
+import {eq, getTableColumns} from "drizzle-orm";
 
 export class PrestataireService {
     async createPrestataire(dto: CreatePrestataireDto) {
@@ -65,5 +65,21 @@ export class PrestataireService {
 
             return prestataireId;
         });
+    }
+
+    async getPrestataireById(id: number) {
+        const {password, ...usersCols} = getTableColumns(users);
+
+        const row = await db
+            .select({
+                prestataire,
+                users: usersCols
+            })
+            .from(prestataire)
+            .leftJoin(users, eq(users.id, prestataire.userId))
+            .where(eq(prestataire.userId, id))
+            .limit(1);
+
+        return row[0];
     }
 }
