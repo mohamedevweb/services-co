@@ -4,7 +4,7 @@ export class CreatePrestataireDto {
     job!: string;
     description!: string;
     experience_time!: number;
-    study_level!: string;
+    study_level!: number;
     city!: string;
     tjm!: number;
     id_users!: number;
