@@ -4,10 +4,11 @@ import dotenv from 'dotenv'
 import {drizzle} from 'drizzle-orm/neon-http';
 import authRoutes from './routes/auth.routes.js';
 import protectedRoutes from './routes/protected.routes.js';
-import { drizzle as drizzleDb} from 'drizzle-orm/node-postgres';
+import {drizzle as drizzleDb} from 'drizzle-orm/node-postgres';
 import prestataireRoute from './routes/prestataire.routes.js';
 import {schema} from "./db/schema.js";
 import aiRoutes from './routes/ai.routes.js';
+import messageRoute from "./routes/message.route.js";
 
 
 dotenv.config();
@@ -24,6 +25,8 @@ app.route('/api', protectedRoutes);
 
 // Mount AI routes
 app.route('/ai', aiRoutes);
+
+app.route('/message', messageRoute)
 
 app.get('/', (c) => {
     return c.text('Hello Hono!')
