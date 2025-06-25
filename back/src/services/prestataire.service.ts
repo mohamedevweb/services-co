@@ -2,7 +2,11 @@ import {db, dbPg} from '../index.js';
 import type {CreatePrestataireDto} from "../dto/createPrestataireDto.js";
 import {diploma, experience, languages, prestataire, skill, users} from "../db/schema.js";
 import {eq, getTableColumns} from "drizzle-orm";
+
 import { sign } from 'hono/jwt';
+
+import type {UpdatePrestataireDto} from "../dto/UpdatePrestataireDto.js";
+
 
 export class PrestataireService {
     private readonly JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key';
@@ -85,6 +89,60 @@ export class PrestataireService {
                 id: prestataireId,
                 token: newToken
             };
+        });
+    }
+
+    async updatePrestataire(prestataireId: number, dto: UpdatePrestataireDto) {
+        return await dbPg.transaction(async (tx) => {
+            const updates: any = {};
+            if (dto.first_name) updates.firstName = dto.first_name;
+            if (dto.name) updates.name = dto.name;
+            if (dto.job) updates.job = dto.job;
+            if (dto.description) updates.description = dto.description;
+            if (dto.experience_time !== undefined) updates.experienceTime = dto.experience_time;
+            if (dto.study_level) updates.studyLevel = dto.study_level;
+            if (dto.city) updates.city = dto.city;
+            if (dto.tjm !== undefined) updates.tjm = dto.tjm;
+
+            if (Object.keys(updates).length > 0) {
+                await tx.update(prestataire)
+                    .set(updates)
+                    .where(eq(prestataire.id, prestataireId));
+            }
+
+            if (Array.isArray(dto.skills)) {
+                await tx.delete(skill).where(eq(skill.prestataireId, prestataireId));
+                await tx.insert(skill).values(dto.skills.map(s => ({
+                    description: s.description,
+                    prestataireId
+                })));
+            }
+
+            if (Array.isArray(dto.diplomas)) {
+                await tx.delete(diploma).where(eq(diploma.prestataireId, prestataireId));
+                await tx.insert(diploma).values(dto.diplomas.map(d => ({
+                    description: d.description,
+                    prestataireId
+                })));
+            }
+
+            if (Array.isArray(dto.experiences)) {
+                await tx.delete(experience).where(eq(experience.prestataireId, prestataireId));
+                await tx.insert(experience).values(dto.experiences.map(e => ({
+                    description: e.description,
+                    prestataireId
+                })));
+            }
+
+            if (Array.isArray(dto.languages)) {
+                await tx.delete(languages).where(eq(languages.prestataireId, prestataireId));
+                await tx.insert(languages).values(dto.languages.map(l => ({
+                    description: l.description,
+                    prestataireId
+                })));
+            }
+
+            return true;
         });
     }
 
