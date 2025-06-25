@@ -6,12 +6,13 @@ import authRoutes from './routes/auth.routes.js';
 import protectedRoutes from './routes/protected.routes.js';
 import { drizzle as drizzleDb} from 'drizzle-orm/node-postgres';
 import prestataireRoute from './routes/prestataire.routes.js';
+import {schema} from "./db/schema.js";
 
 
 dotenv.config();
 
 const app = new Hono()
-export const db = drizzle(process.env.DATABASE_URL!);
+export const db = drizzle(process.env.DATABASE_URL!, {schema: schema});
 export const dbPg = drizzleDb(process.env.DATABASE_URL!);
 
 // Mount auth routes
