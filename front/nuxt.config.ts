@@ -9,7 +9,14 @@ export default defineNuxtConfig({
     '@nuxt/icon',
     '@nuxt/image',
     'nuxt-mcp',
+    '@pinia/nuxt'
   ],
+
+  runtimeConfig: {
+    public: {
+      apiUrl: ''
+    }
+  },
 
   css: ['~/assets/css/main.css'],
 

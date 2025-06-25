@@ -11,14 +11,26 @@ import aiRoutes from './routes/ai.routes.js';
 import organizationRoutes from './routes/organization.routes.js';
 import aiTranslateRoutes from './routes/aiTranslate.routes.js';
 import messageRoute from "./routes/message.route.js";
-
-
+import { cors } from 'hono/cors'
 
 dotenv.config();
 
 const app = new Hono()
 export const db = drizzle(process.env.DATABASE_URL!, {schema: schema});
 export const dbPg = drizzleDb(process.env.DATABASE_URL!, {schema: schema});
+
+app.use('/*', cors())
+app.use(
+    '/*',
+    cors({
+        origin: '*',
+        allowHeaders: ['X-Custom-Header', 'Upgrade-Insecure-Requests'],
+        allowMethods: ['POST', 'GET', 'OPTIONS', 'DELETE', 'PATCH', 'PUT'],
+        exposeHeaders: ['Content-Length', 'X-Kuma-Revision'],
+        maxAge: 600,
+        credentials: true,
+    })
+)
 
 // Mount auth routes
 app.route('/auth', authRoutes);
