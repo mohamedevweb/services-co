@@ -7,6 +7,7 @@ import protectedRoutes from './routes/protected.routes.js';
 import { drizzle as drizzleDb} from 'drizzle-orm/node-postgres';
 import prestataireRoute from './routes/prestataire.routes.js';
 import {schema} from "./db/schema.js";
+import aiRoutes from './routes/ai.routes.js';
 
 
 dotenv.config();
@@ -20,6 +21,9 @@ app.route('/auth', authRoutes);
 
 // Mount protected routes
 app.route('/api', protectedRoutes);
+
+// Mount AI routes
+app.route('/ai', aiRoutes);
 
 app.get('/', (c) => {
     return c.text('Hello Hono!')
