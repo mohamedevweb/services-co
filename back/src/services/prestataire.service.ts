@@ -2,21 +2,36 @@ import {db, dbPg} from '../index.js';
 import type {CreatePrestataireDto} from "../dto/createPrestataireDto.js";
 import {diploma, experience, languages, prestataire, skill, users} from "../db/schema.js";
 import {eq, getTableColumns} from "drizzle-orm";
+import { sign } from 'hono/jwt';
 
 export class PrestataireService {
-    async createPrestataire(dto: CreatePrestataireDto) {
+    private readonly JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key';
+    private readonly JWT_EXPIRES_IN = 60 * 60 * 24; // 24 hours in seconds
+
+    private async generateJWT(userId: number, role: string): Promise<string> {
+        const payload = {
+            id: userId.toString(),
+            role: role,
+            iat: Math.floor(Date.now() / 1000),
+            exp: Math.floor(Date.now() / 1000) + this.JWT_EXPIRES_IN,
+        };
+
+        return await sign(payload, this.JWT_SECRET);
+    }
+
+    async createPrestataire(dto: CreatePrestataireDto): Promise<{ id: number; token: string }> {
         return await dbPg.transaction(async (tx) => {
             const [created] = await tx
                 .insert(prestataire)
                 .values({
                     firstName: dto.first_name,
                     name: dto.name,
-                    job: dto.job,
+                    job: dto.job as any,
                     description: dto.description,
                     experienceTime: dto.experience_time,
                     studyLevel: dto.study_level,
                     city: dto.city,
-                    tjm: dto.tjm,
+                    tjm: dto.tjm.toString(),
                     userId: dto.id_users,
                 })
                 .returning({id: prestataire.id});
@@ -63,7 +78,13 @@ export class PrestataireService {
                 .set({role: 'PRESTA'})
                 .where(eq(users.id, dto.id_users));
 
-            return prestataireId;
+            // Générer un nouveau JWT avec le nouveau rôle
+            const newToken = await this.generateJWT(dto.id_users, 'PRESTA');
+
+            return {
+                id: prestataireId,
+                token: newToken
+            };
         });
     }
 

@@ -6,11 +6,12 @@ import {
     boolean,
     timestamp,
     primaryKey,
+    text,
     pgEnum,
 } from "drizzle-orm/pg-core";
 
 // Enums
-export const userRoleEnum = pgEnum("role", ["ADMIN", "ORG", "PRESTA", "USER"]);
+export const userRoleEnum = pgEnum("role", ["ADMIN", "ORG", "PRESTA"]);
 export const jobEnum = pgEnum("job", [
     "DEVELOPMENT",
     "DESIGN",
@@ -67,8 +68,8 @@ export const path = pgTable("path", {
 
 export const aiTranslate = pgTable("ai_translate", {
     id: integer("Id_ai_translate").primaryKey().generatedAlwaysAsIdentity(),
-    content: varchar("content", { length: 50 }),
-    contentTranslate: varchar("content_translate", { length: 50 }),
+    content: text("content"),
+    contentTranslate: text("content_translate"),
     organizationId: integer("Id_organization").notNull().references(() => organization.id),
 });
 
@@ -129,19 +130,3 @@ export const pathPrestataire = pgTable(
         pk: primaryKey({ columns: [table.prestataireId, table.pathId] }),
     })
 );
-
-export const schema = {
-    users,
-    prestataire,
-    organization,
-    project,
-    path,
-    aiTranslate,
-    skill,
-    diploma,
-    experience,
-    languages,
-    contract,
-    message,
-    pathPrestataire,
-};

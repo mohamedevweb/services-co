@@ -8,6 +8,8 @@ import { drizzle as drizzleDb} from 'drizzle-orm/node-postgres';
 import prestataireRoute from './routes/prestataire.routes.js';
 import {schema} from "./db/schema.js";
 import aiRoutes from './routes/ai.routes.js';
+import organizationRoutes from './routes/organization.routes.js';
+import aiTranslateRoutes from './routes/aiTranslate.routes.js';
 
 
 dotenv.config();
@@ -24,6 +26,12 @@ app.route('/api', protectedRoutes);
 
 // Mount AI routes
 app.route('/ai', aiRoutes);
+
+// Mount organization routes
+app.route('/organization', organizationRoutes);
+
+// Mount AI translate routes
+app.route('/ai-translate', aiTranslateRoutes);
 
 app.get('/', (c) => {
     return c.text('Hello Hono!')

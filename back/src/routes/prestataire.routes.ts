@@ -19,8 +19,15 @@ prestataire.post("/", guard, async (c) => {
     body.id_users = Number(userId);
 
     try {
-        const prestataireId: number = await prestataireService.createPrestataire(body);
-        return c.json({success: true, id: prestataireId}, 201);
+        const result = await prestataireService.createPrestataire(body);
+        return c.json({
+            success: true, 
+            data: {
+                id: result.id,
+                token: result.token
+            },
+            message: "Prestataire created successfully. New JWT token provided with updated role."
+        }, 201);
     } catch (err) {
         console.error('Erreur création prestataire :', err);
         return c.json({success: false, message: 'Erreur serveur.'}, 500);
