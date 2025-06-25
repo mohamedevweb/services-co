@@ -98,6 +98,11 @@ export class AITranslateService {
                 // Stringifier le contenu traduit
                 const translatedContentString = JSON.stringify(translatedContent);
 
+                console.log(`Attempting to insert into database...`);
+                console.log(`Organization ID: ${dto.organizationId}`);
+                console.log(`Content length: ${dto.content.length}`);
+                console.log(`Translated content length: ${translatedContentString.length}`);
+
                 // Sauvegarder en base
                 const [created] = await tx
                     .insert(aiTranslate)
@@ -113,6 +118,15 @@ export class AITranslateService {
 
             } catch (error) {
                 console.error("Error in translation process:", error);
+                console.error("Error details:", {
+                    message: error instanceof Error ? error.message : 'Unknown error',
+                    stack: error instanceof Error ? error.stack : undefined,
+                    dto: {
+                        organizationId: dto.organizationId,
+                        targetLanguage: dto.targetLanguage,
+                        contentLength: dto.content.length
+                    }
+                });
                 throw new Error(`Translation failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
             }
         });

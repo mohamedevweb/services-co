@@ -18,7 +18,7 @@ dotenv.config();
 
 const app = new Hono()
 export const db = drizzle(process.env.DATABASE_URL!, {schema: schema});
-export const dbPg = drizzleDb(process.env.DATABASE_URL!);
+export const dbPg = drizzleDb(process.env.DATABASE_URL!, {schema: schema});
 
 // Mount auth routes
 app.route('/auth', authRoutes);

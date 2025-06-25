@@ -130,3 +130,22 @@ export const pathPrestataire = pgTable(
         pk: primaryKey({ columns: [table.prestataireId, table.pathId] }),
     })
 );
+
+// Export all schema objects for Drizzle
+export const schema = {
+    users,
+    prestataire,
+    organization,
+    project,
+    path,
+    aiTranslate,
+    skill,
+    diploma,
+    experience,
+    languages,
+    contract,
+    message,
+    pathPrestataire,
+    userRoleEnum,
+    jobEnum,
+};
