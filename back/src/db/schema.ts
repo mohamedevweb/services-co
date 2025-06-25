@@ -24,7 +24,7 @@ export const jobEnum = pgEnum("job", [
 export const users = pgTable("users", {
     id: integer("Id_users").primaryKey().generatedAlwaysAsIdentity(),
     email: varchar("email", { length: 50 }),
-    password: varchar("password", { length: 50 }),
+    password: varchar("password", { length: 100 }),
     role: userRoleEnum("role"),
     siret: varchar("siret", { length: 50 }),
 });
