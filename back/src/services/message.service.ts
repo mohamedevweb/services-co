@@ -30,4 +30,20 @@ export class MessageService {
             )
             .orderBy(asc(message.createAt));
     }
+
+    async getMessagesByPrestataire(prestataireId: number) {
+        return dbPg
+            .select()
+            .from(message)
+            .where(eq(message.prestataireId, prestataireId))
+            .orderBy(asc(message.createAt));
+    }
+
+    async getMessagesByOrganization(organizationId: number) {
+        return dbPg
+            .select()
+            .from(message)
+            .where(eq(message.organizationId, organizationId))
+            .orderBy(asc(message.createAt));
+    }
 }

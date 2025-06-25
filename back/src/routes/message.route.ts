@@ -43,4 +43,31 @@ message.get("/conversation", guard, async (c) => {
     }
 });
 
+message.get("/prestataire/:id", guard, async (c) => {
+    const id = Number(c.req.param("id"));
+    if (isNaN(id)) return c.json({ error: "Invalid ID" }, 400);
+
+    try {
+        const messages = await messageService.getMessagesByPrestataire(id);
+        return c.json({ success: true, messages });
+    } catch (err) {
+        console.error("Erreur récupération messages prestataire :", err);
+        return c.json({ success: false, message: "Erreur serveur." }, 500);
+    }
+});
+
+message.get("/organization/:id", guard, async (c) => {
+    const id = Number(c.req.param("id"));
+    if (isNaN(id)) return c.json({ error: "Invalid ID" }, 400);
+
+    try {
+        const messages = await messageService.getMessagesByOrganization(id);
+        return c.json({ success: true, messages });
+    } catch (err) {
+        console.error("Erreur récupération messages organization :", err);
+        return c.json({ success: false, message: "Erreur serveur." }, 500);
+    }
+});
+
+
 export default message;
