@@ -55,7 +55,7 @@ export const organization = pgTable("organization", {
 export const project = pgTable("project", {
     id: integer("Id_project").primaryKey().generatedAlwaysAsIdentity(),
     title: varchar("title", { length: 50 }),
-    description: varchar("description", { length: 50 }),
+    description: varchar("description", { length: 10000 }),
     organizationId: integer("Id_organization").notNull().references(() => organization.id),
 });
 

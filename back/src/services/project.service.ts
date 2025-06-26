@@ -31,7 +31,7 @@ export class ProjectService {
                 throw new Error("Projet non trouvé");
             }
 
-            // Récupérer les paths avec leurs tâches
+            // Récupérer les paths avec leurs tâches ET les informations des prestataires
             const pathsData = await db
                 .select({
                     path: {
@@ -40,10 +40,27 @@ export class ProjectService {
                         isChoose: path.isChoose,
                         projectId: path.projectId
                     },
-                    tasks: pathPrestataire
+                    task: {
+                        prestataireId: pathPrestataire.prestataireId,
+                        pathId: pathPrestataire.pathId,
+                        isApproved: pathPrestataire.isApproved,
+                        nbDays: pathPrestataire.nbDays,
+                        name: pathPrestataire.name
+                    },
+                    prestataire: {
+                        id: prestataire.id,
+                        firstName: prestataire.firstName,
+                        name: prestataire.name,
+                        job: prestataire.job,
+                        description: prestataire.description,
+                        experienceTime: prestataire.experienceTime,
+                        city: prestataire.city,
+                        tjm: prestataire.tjm
+                    }
                 })
                 .from(path)
                 .leftJoin(pathPrestataire, eq(pathPrestataire.pathId, path.id))
+                .leftJoin(prestataire, eq(prestataire.id, pathPrestataire.prestataireId))
                 .where(eq(path.projectId, projectId))
                 .orderBy(path.number);
 
@@ -60,8 +77,11 @@ export class ProjectService {
                     paths.push(pathMap.get(row.path.id));
                 }
 
-                if (row.tasks) {
-                    pathMap.get(row.path.id).tasks.push(row.tasks);
+                if (row.task && row.prestataire) {
+                    pathMap.get(row.path.id).tasks.push({
+                        ...row.task,
+                        prestataire: row.prestataire
+                    });
                 }
             }
 
