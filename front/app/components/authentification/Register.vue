@@ -26,6 +26,10 @@ async function onSubmit(event: FormSubmitEvent<typeof state>) {
 
   await userStore.register(event.data.email, event.data.password)
 
+  setTimeout(() => {
+      location.reload()
+  }, 1000)
+
 }
 </script>
 

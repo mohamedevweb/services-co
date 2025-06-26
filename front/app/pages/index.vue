@@ -29,7 +29,14 @@
 </template>
 
 <script setup>
+import {useUserStore} from "~~/store/user.js";
+
 const search = ref('')
+
+const auth = useUserStore()
+if(auth.user.role ==='USER'){
+  navigateTo('/choix-user')
+}
 
 const categories = ref([
 	{ id: 1, name: 'Développeur Web', description: 'Créez et maintenez vos sites ou apps.', icon: 'i-heroicons-code-bracket-square' },

@@ -26,8 +26,6 @@ async function onSubmit(event: FormSubmitEvent<typeof state>) {
   }
 
   await userStore.login(event.data.email, event.data.password)
-
-  navigateTo('/')
 }
 
 const items = [
