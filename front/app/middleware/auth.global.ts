@@ -1,6 +1,7 @@
 import {useUserStore} from "~~/store/user";
 
 export default defineNuxtRouteMiddleware(async (to, from) => {
+    return;
     console.log('🛡️ Middleware executed for:', to.path);
     
     const auth = useUserStore();

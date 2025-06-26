@@ -45,7 +45,7 @@ app.route('/ai', aiRoutes);
 app.route('/organization', organizationRoutes);
 
 // Mount AI translate routes
-app.route('/ai-translate', aiTranslateRoutes);
+app.route('/translate', aiTranslateRoutes);
 
 app.route('/message', messageRoute)
 
