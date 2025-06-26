@@ -6,28 +6,29 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
     const auth = useUserStore();
     
     // Routes publiques qui ne nécessitent pas d'authentification
-    const publicRoutes = ['/', '/login'];
+    const publicRoutes = ['/', '/login','/about'];
     
     // Si on est sur une route publique, on laisse passer
     if (publicRoutes.includes(to.path)) {
         console.log('✅ Route publique, accès autorisé:', to.path);
         return;
     }
-    
-    console.log('🔒 Route protégée détectée:', to.path);
-    
+
+    if(auth.isAuthenticated){
+        return;
+    }
+
     // Récupération du token depuis le cookie uniquement (compatible SSR)
     const token = useCookie('token').value;
     console.log('🎫 Token trouvé:', !!token);
-    
+    console.log('👤 Utilisateur authentifié:', auth.isAuthenticated);
+
     // Si pas de token, redirection vers login
     if (!token) {
-        console.log('❌ Pas de token, redirection vers /login');
         return navigateTo('/login');
     }
     
-    console.log('👤 Utilisateur authentifié:', auth.isAuthenticated);
-    
+
     // Si l'utilisateur n'est pas authentifié, vérifier le token
     if (!auth.isAuthenticated) {
         console.log('🔍 Vérification du token...');

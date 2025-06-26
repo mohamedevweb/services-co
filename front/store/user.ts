@@ -55,20 +55,27 @@ export const useUserStore = defineStore('user', {
                     }
                 }) as any
 
-                this.email = response.email;
-                this.password = response.password;
-                this.isAuthenticated = true;
+                if(response.success){
+                    this.email = response.email;
+                    this.password = response.password;
+                    this.isAuthenticated = true;
 
-                // Stocker le token dans le cookie
-                const token = useCookie('token')
-                token.value = response.data?.token
+                    // Stocker le token dans le cookie
+                    const token = useCookie('token', {
+                        maxAge: 3600, // Durée de vie en secondes (ici, 1 heure)
+                    });
+                    token.value = response.data?.token;
 
-                toast.add({
-                        title: 'Login successful',
-                        description: 'You have successfully logged in.',
-                        color: 'success',
-                    }
-                )
+                    toast.add({
+                            title: 'Login successful',
+                            description: 'You have successfully logged in.',
+                            color: 'success',
+                        }
+                    )
+                }
+                else {
+                    throw new Error(response.message || 'Login failed');
+                }
             }
             catch(error: any)
             {

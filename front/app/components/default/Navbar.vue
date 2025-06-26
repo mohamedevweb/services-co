@@ -18,6 +18,7 @@ const handleLogout = async () => {
         <span class="font-bold text-2xl text-neutral-800 dark:text-neutral-100">Services CO</span>
         <UButton color="neutral" variant="ghost" size="sm" label="Accueil" to="/" />
         <UButton color="neutral" variant="ghost" size="sm" label="À propos" to="/about" />
+        <UButton color="neutral" variant="ghost" size="sm" label="Prompt" to="/prompt" />
       </div>
 
 
