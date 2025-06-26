@@ -1,3 +1,5 @@
+import { jwtDecode } from 'jwt-decode'
+
 interface User {
     id: number;
     email: string;
@@ -66,15 +68,26 @@ export const useUserStore = defineStore('user', {
                     this.user = response.data;
                     this.isAuthenticated = true;
 
-                    // Stocker le token dans le cookie
-                    const token = useCookie('token', {
-                        secure: false,
-                        path: '/',
-                        sameSite: 'lax',
-                        maxAge: 60 * 60 * 24 * 365
-                    })
+					// Stocker le token JWT et ses infos décodées dans le cookie
+					const token = useCookie('token', {
+						secure: false,
+						path: '/',
+						sameSite: 'lax',
+						maxAge: 60 * 60 * 24 * 365
+					})
 
-                    token.value = response.data?.token;
+					const jwt = response.data?.token
+					let decoded = null
+					try {
+						decoded = jwt ? jwtDecode(jwt) : null
+					} catch (e) {
+						decoded = null
+					}
+
+					token.value = {
+						jwt,
+						decoded
+					}
 
                     toast.add({
                             title: 'Login successful',
@@ -157,7 +170,7 @@ export const useUserStore = defineStore('user', {
             if (this.user) {
                 this.user.role = newRole;
                 this.user.token = newToken;
-                
+
                 // Mettre à jour le cookie
                 const tokenCookie = useCookie('token', {
                     secure: false,
