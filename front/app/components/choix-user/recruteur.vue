@@ -51,7 +51,7 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
       toast.add({
         title: 'Profil créé !',
         description: 'Votre profil recruteur a été créé avec succès.',
-        color: 'green'
+        color: 'success'
       })
 
       // Redirection vers le dashboard
@@ -63,7 +63,7 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
     toast.add({
       title: 'Erreur',
       description: error.data?.message || 'Une erreur est survenue lors de la création du profil.',
-      color: 'red'
+      color: 'error'
     })
   } finally {
     isLoading.value = false

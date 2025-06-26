@@ -18,6 +18,25 @@ export default defineNuxtConfig({
     }
   },
 
+  vite: {
+    define: {
+      global: 'globalThis',
+    },
+    optimizeDeps: {
+      include: ['pdf-parse']
+    },
+    resolve: {
+      alias: {
+        buffer: 'buffer'
+      }
+    }
+  },
+
+  nitro: {
+    experimental: {
+      wasm: true
+    }
+  },
 
   imports: {
     dirs: [
