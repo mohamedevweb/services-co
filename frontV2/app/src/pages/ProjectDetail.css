@@ -1,0 +1,497 @@
+.project-detail-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  min-height: 100vh;
+}
+
+/* Header */
+.project-header {
+  background: white;
+  border-radius: 15px;
+  padding: 25px 30px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  margin-bottom: 30px;
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.project-title-section {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  flex: 1;
+}
+
+.project-title-section h1 {
+  color: #2c3e50;
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.project-id {
+  background: #667eea;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.back-btn {
+  background: #6c757d;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  font-size: 0.95rem;
+}
+
+.back-btn:hover {
+  background: #5a6268;
+  transform: translateY(-2px);
+}
+
+/* Informations du projet */
+.project-info-section {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 25px;
+  margin-bottom: 40px;
+}
+
+.info-card {
+  background: white;
+  border-radius: 15px;
+  padding: 25px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.info-card h2 {
+  color: #2c3e50;
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.project-description {
+  color: #34495e;
+  line-height: 1.6;
+  font-size: 1rem;
+  margin: 0;
+}
+
+.organization-details {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.detail-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.detail-row .label {
+  font-weight: 600;
+  color: #2c3e50;
+  min-width: 80px;
+}
+
+.detail-row .value {
+  color: #34495e;
+  flex: 1;
+}
+
+/* Paths Section */
+.paths-section {
+  background: white;
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.paths-section h2 {
+  color: #2c3e50;
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.paths-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+/* Path Cards */
+.path-card {
+  background: #f8f9fa;
+  border-radius: 15px;
+  padding: 25px;
+  border: 2px solid #e9ecef;
+  transition: all 0.3s ease;
+}
+
+.path-card.chosen {
+  border-color: #28a745;
+  background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+  box-shadow: 0 8px 25px rgba(40, 167, 69, 0.2);
+}
+
+.path-card.disabled {
+  opacity: 0.6;
+  background: #f1f3f4;
+  border-color: #dee2e6;
+}
+
+.path-card.disabled:not(.chosen) {
+  filter: grayscale(0.3);
+}
+
+.path-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid #dee2e6;
+}
+
+.path-header h3 {
+  color: #2c3e50;
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.status-badge {
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.status-badge.chosen {
+  background: #28a745;
+  color: white;
+}
+
+.choose-btn {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+}
+
+.choose-btn:hover:not(:disabled) {
+  background: #0056b3;
+  transform: translateY(-1px);
+}
+
+.choose-btn:disabled,
+.choose-btn.disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  background: #6c757d;
+  transform: none;
+}
+
+.choose-btn.disabled:hover {
+  background: #6c757d;
+  transform: none;
+}
+
+/* Tasks */
+.tasks-list h4 {
+  color: #2c3e50;
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.tasks-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+}
+
+.task-item {
+  background: white;
+  border-radius: 12px;
+  padding: 15px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+  border-left: 4px solid #667eea;
+}
+
+.task-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.task-number {
+  background: #667eea;
+  color: white;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 0.8rem;
+  flex-shrink: 0;
+}
+
+.task-name {
+  color: #2c3e50;
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0;
+  flex: 1;
+  line-height: 1.2;
+}
+
+.task-duration {
+  background: #ffc107;
+  color: #212529;
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 0.75rem;
+  flex-shrink: 0;
+}
+
+/* Prestataire Info */
+.prestataire-info {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.prestataire-name {
+  color: #2c3e50;
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 8px;
+}
+
+.prestataire-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.prestataire-meta span {
+  background: #e9ecef;
+  color: #495057;
+  padding: 3px 6px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.prestataire-description {
+  color: #6c757d;
+  font-size: 0.85rem;
+  line-height: 1.3;
+  margin-bottom: 8px;
+}
+
+/* Task Status */
+.task-status {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.approval-status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 15px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  min-height: 28px;
+}
+
+.approval-status.approved {
+  background: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.approval-status.pending {
+  background: #fff3cd;
+  color: #856404;
+  border: 1px solid #ffeaa7;
+}
+
+/* Styles spécifiques pour éviter les conflits */
+.project-detail-container .approval-status .status-icon {
+  font-size: 0.85rem;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 0.85rem;
+  height: 0.85rem;
+}
+
+/* Classe générique supprimée pour éviter les conflits */
+
+/* Path Summary */
+.path-summary {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 2px solid #dee2e6;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 15px;
+}
+
+.summary-item {
+  text-align: center;
+  padding: 12px;
+  background: rgba(255,255,255,0.7);
+  border-radius: 10px;
+}
+
+.summary-item .label {
+  display: block;
+  color: #6c757d;
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+
+.summary-item .value {
+  display: block;
+  color: #2c3e50;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+/* Loading and Error States */
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+  font-size: 1.2rem;
+  color: #667eea;
+  font-weight: 500;
+}
+
+.error-message {
+  background: #f8d7da;
+  color: #721c24;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  font-weight: 500;
+  margin-bottom: 20px;
+  border: 1px solid #f5c6cb;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  /* Les parcours restent en colonne, pas de changement nécessaire */
+}
+
+@media (max-width: 1024px) {
+  .tasks-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+}
+
+@media (max-width: 768px) {
+  .project-detail-container {
+    padding: 10px;
+  }
+  
+  .project-header {
+    padding: 20px;
+  }
+  
+  .header-content {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+  
+  .project-title-section {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  
+  .project-title-section h1 {
+    font-size: 1.8rem;
+  }
+  
+  .project-info-section {
+    grid-template-columns: 1fr;
+  }
+  
+  .info-card {
+    padding: 20px;
+  }
+  
+  .paths-section {
+    padding: 20px;
+  }
+  
+  .path-card {
+    padding: 20px;
+  }
+  
+  /* Les parcours restent en colonne */
+  
+  .tasks-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  
+  .prestataire-info {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+  
+  .task-approval {
+    flex-direction: row;
+    justify-content: center;
+  }
+  
+  .prestataire-meta {
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .path-summary {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+} 
