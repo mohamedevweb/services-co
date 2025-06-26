@@ -16,7 +16,7 @@ if (!process.env.OPENAI_API_KEY) {
 }
 
 const model = new ChatOpenAI({
-    model: "gpt-3.5-turbo",
+    model: "gpt-4.1-mini",
     temperature: 0,
     apiKey: process.env.OPENAI_API_KEY
 });
@@ -37,6 +37,8 @@ export class AITranslateService {
 
             const response = await model.invoke(prompt);
             let translatedText = response.content as string;
+
+            console.log(`➡️ Traduction du texte: "${translatedText}"`);
             
             // Nettoyer les guillemets superflus que l'IA pourrait ajouter
             translatedText = translatedText.trim();
@@ -60,27 +62,62 @@ export class AITranslateService {
             pages: []
         };
 
-        for (const page of content.pages) {
-            const translatedPage = {
-                ...page,
-                textBlocks: [] as TextBlock[]
-            };
+        for (let i = 0; i < content.pages.length; i++) {
+            const page = content.pages[i];
+            console.log(`➡️ Traduction de la page ${i + 1}/${content.pages.length}...`);
 
-            for (const textBlock of page.textBlocks) {
-                const translatedText = await this.translateText(textBlock.text, targetLanguage);
-                
-                const translatedTextBlock: TextBlock = {
-                    ...textBlock,
-                    text: translatedText
+            // Fusionner tous les blocs de texte de la page
+            const fullText = page.textBlocks.map(tb => tb.text).join('\n\n');
+
+            // Couper intelligemment si le texte est trop long
+            const maxLength = 4000;
+            const chunks = this.splitText(fullText, maxLength);
+
+            // Traduire chaque chunk en parallèle
+            const translations = await Promise.all(
+                chunks.map(chunk => this.translateText(chunk, targetLanguage))
+            );
+
+            const fullTranslated = translations.join('\n\n');
+
+            // Redécouper la traduction dans les mêmes blocs (approximation simple)
+            const approxBlockLength = Math.floor(fullTranslated.length / page.textBlocks.length);
+            let cursor = 0;
+
+            const translatedTextBlocks: TextBlock[] = page.textBlocks.map((block, index) => {
+                const slice = fullTranslated.slice(cursor, cursor + approxBlockLength).trim();
+                cursor += approxBlockLength;
+                return {
+                    ...block,
+                    text: slice
                 };
+            });
 
-                translatedPage.textBlocks.push(translatedTextBlock);
-            }
+            translatedContent.pages.push({
+                ...page,
+                textBlocks: translatedTextBlocks
+            });
 
-            translatedContent.pages.push(translatedPage);
+            console.log(`✅ Page ${i + 1} traduite (${chunks.length} appel(s) IA).`);
         }
 
         return translatedContent;
+    }
+
+    private splitText(text: string, maxLength: number): string[] {
+        const parts: string[] = [];
+        let remaining = text;
+
+        while (remaining.length > maxLength) {
+            const sliceIndex = remaining.lastIndexOf('.', maxLength);
+            const cutIndex = sliceIndex > 0 ? sliceIndex + 1 : maxLength;
+            parts.push(remaining.slice(0, cutIndex).trim());
+            remaining = remaining.slice(cutIndex).trim();
+        }
+
+        if (remaining.length > 0) parts.push(remaining);
+
+        return parts;
     }
 
     async createTranslation(dto: CreateAITranslateDto): Promise<number> {

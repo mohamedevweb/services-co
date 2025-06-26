@@ -1,5 +1,6 @@
 import { useUserStore } from '~~/store/user'
 
+
 export default defineNuxtRouteMiddleware(async (to) => {
 	const auth = useUserStore()
 	const tokenRef = useCookie<string | undefined>('token')

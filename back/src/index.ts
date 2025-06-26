@@ -48,7 +48,8 @@ app.route('/organization', organizationRoutes)
 app.route('/prestataire', prestataireRoutes)
 
 // Mount AI translate routes
-app.route('/ai-translate', aiTranslateRoutes)
+app.route('/translate', aiTranslateRoutes);
+
 
 app.route('/message', messageRoute)
 
