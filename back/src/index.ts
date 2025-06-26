@@ -11,6 +11,8 @@ import aiRoutes from './routes/ai.routes.js';
 import organizationRoutes from './routes/organization.routes.js';
 import aiTranslateRoutes from './routes/aiTranslate.routes.js';
 import messageRoute from "./routes/message.route.js";
+import projectAIRoutes from "./routes/projectAI.routes.js";
+import projectRoutes from "./routes/project.routes.js";
 import { cors } from 'hono/cors'
 
 dotenv.config();
@@ -47,8 +49,13 @@ app.route('/organization', organizationRoutes);
 // Mount AI translate routes
 app.route('/ai-translate', aiTranslateRoutes);
 
-app.route('/message', messageRoute)
+// Mount project AI routes
+app.route('/project-ai', projectAIRoutes);
 
+// Mount project routes
+app.route('/project', projectRoutes);
+
+app.route('/message', messageRoute)
 
 app.get('/', (c) => {
     return c.text('Hello Hono!')
