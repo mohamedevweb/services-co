@@ -27,7 +27,11 @@ async function onSubmit(event: FormSubmitEvent<typeof state>) {
 
   await userStore.login(event.data.email, event.data.password)
 
-  navigateTo('/')
+  if(userStore.isAuthenticated){
+    setTimeout(() => {
+      navigateTo('/')
+    }, 1000)
+  }
 }
 
 const items = [

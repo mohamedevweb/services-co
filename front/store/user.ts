@@ -62,8 +62,12 @@ export const useUserStore = defineStore('user', {
 
                     // Stocker le token dans le cookie
                     const token = useCookie('token', {
-                        maxAge: 3600, // Durée de vie en secondes (ici, 1 heure)
-                    });
+                        secure: false,
+                        path: '/',
+                        sameSite: 'lax',
+                        maxAge: 60 * 60 * 24 * 365
+                    })
+
                     token.value = response.data?.token;
 
                     toast.add({
@@ -96,6 +100,9 @@ export const useUserStore = defineStore('user', {
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${token}`
+                    },
+                    body: {
+                        token: token
                     }
                 }) as any
 
@@ -103,9 +110,12 @@ export const useUserStore = defineStore('user', {
                     this.isAuthenticated = true;
                 }
                 else {
+                    // Nettoyer le cookie en cas d'erreur
+                    const tokenCookie = useCookie('token');
+                    tokenCookie.value = null;
+                    this.isAuthenticated = false;
                     throw new Error(response.message || 'Token verification failed');
                 }
-
 
             } catch(error: any) {
                 toast.add({
@@ -113,6 +123,8 @@ export const useUserStore = defineStore('user', {
                     description: error.message || 'Failed to verify token.',
                     color: 'error',
                 });
+                const tokenCookie = useCookie('token');
+                tokenCookie.value = null;
                 this.isAuthenticated = false;
             }
         },

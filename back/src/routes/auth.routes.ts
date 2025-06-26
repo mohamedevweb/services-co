@@ -82,8 +82,19 @@ auth.post('/login', async (c) => {
 // Verify token endpoint
 auth.post('/verify', async (c) => {
   try {
-    const body = await c.req.json();
-    
+    // Attempt to parse the request body
+    let body;
+    try {
+      body = await c.req.json();
+    } catch (error) {
+      console.error('Error parsing JSON:', error);
+      return c.json({
+        success: false,
+        message: 'Invalid JSON input'
+      }, 400);
+    }
+
+    // Ensure the token is provided
     if (!body.token) {
       return c.json({
         success: false,
@@ -92,7 +103,7 @@ auth.post('/verify', async (c) => {
     }
 
     const result = await authService.verifyToken(body.token);
-    
+
     if (result.success) {
       return c.json(result, 200);
     } else {

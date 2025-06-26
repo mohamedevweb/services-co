@@ -17,7 +17,7 @@ const handleLogout = async () => {
 				<span class="font-bold text-2xl text-neutral-800 dark:text-neutral-100">Services CO</span>
 				<UButton color="neutral" variant="ghost" size="sm" label="Accueil" to="/" />
 				<UButton color="neutral" variant="ghost" size="sm" label="À propos" to="/about" />
-				<UButton color="neutral" variant="ghost" size="sm" label="Profile" to="/account/profile" />
+				<UButton v-if="auth.isAuthenticated" color="neutral" variant="ghost" size="sm" label="Profile" to="/account/profile" />
 			</div>
 
 			<UButton v-if="!auth.isAuthenticated" color="neutral" class="bg-blue-500 text-white" variant="ghost" size="md" label="Login" to="/login" />
